@@ -132,14 +132,6 @@ return require("packer").startup {
         local join = function(k, v)
           return {k .. string.rep(" ", 16) .. v}
         end
-        vim.g.dashboard_custom_header = {
-          " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-          " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-          " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-          " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-          " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-          " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝"
-        }
         vim.g.dashboard_default_executive = "telescope"
         vim.g.dashboard_disable_statusline = 1
         vim.g.dashboard_session_directory = vim.fn.stdpath("data") .. "/session"
@@ -157,6 +149,13 @@ return require("packer").startup {
             command = "TelescopeFindFiles"
           }
         }
+        if vim.fn.executable("lolcat") then
+          vim.g.dashboard_preview_command = "cat"
+          vim.g.dashboard_preview_pipeline = "lolcat"
+          vim.g.dashboard_preview_file = vim.g.vim_dir .. "/neovim.cat"
+          vim.g.dashboard_preview_file_height = 12
+          vim.g.dashboard_preview_file_width = 80
+        end
         require("as.autocommands").augroup(
           "DashboardSession",
           {
